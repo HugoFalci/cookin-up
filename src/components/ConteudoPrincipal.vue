@@ -1,5 +1,6 @@
 <script lang="ts">
 import SelecionarIngredientes from './SelecionarIngredientes.vue';
+import Tag from './Tag.vue';
 
 export default {
     name: 'ConteudoPrincipal',  // Nome do componente Vue
@@ -9,7 +10,7 @@ export default {
         };
     },
 
-    components: { SelecionarIngredientes }
+    components: { SelecionarIngredientes, Tag }
 }
 </script>
 
@@ -23,8 +24,8 @@ export default {
 
             <!-- Lista de ingredientes, mostrada apenas se houver ingredientes (v-if)-->
             <ul v-if="ingredientes.length" class="ingredientes-sua-lista">
-                <li v-for="ingrediente in ingredientes" v-bind:key="ingrediente" class="ingrediente">
-                    {{ ingrediente }} <!-- Mostra cada ingrediente na lista -->
+                <li v-for="ingrediente in ingredientes" v-bind:key="ingrediente">
+                    <Tag :texto="ingrediente" /> <!-- Mostra cada ingrediente na lista -->
                 </li>
             </ul>
 
@@ -80,27 +81,6 @@ export default {
     /* Espaçamento entre os itens */
     flex-wrap: wrap;
     /* Permite que os itens quebrem para a próxima linha */
-}
-
-.ingrediente {
-    display: inline-block;
-    /* Exibe como bloco em linha */
-    border-radius: 0.5rem;
-    /* Bordas arredondadas */
-    min-width: 4.25rem;
-    /* Largura mínima */
-    padding: 0.5rem;
-    /* Espaçamento interno (padding) */
-    text-align: center;
-    /* Alinha o texto ao centro */
-    transition: 0.2s;
-    /* Transição suave */
-    color: var(--creme, #FFFAF3);
-    /* Cor do texto */
-    background: var(--coral, #F0633C);
-    /* Cor de fundo */
-    font-weight: 700;
-    /* Peso da fonte */
 }
 
 .lista-vazia {
