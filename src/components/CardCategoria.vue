@@ -1,5 +1,5 @@
 <script lang="ts">
-import type ICategoria from '@/interfaces/ICategoria.vue'; // Importa a interface ICategoria para tipagem
+import type ICategoria from '@/interfaces/ICategoria'; // Importa a interface ICategoria para tipagem
 import type { PropType } from 'vue'; // Importa PropType para tipagem de propriedades do Vue
 import Tag from '@/components/Tag.vue'; // Importa o componente Tag
 
