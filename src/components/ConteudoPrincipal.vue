@@ -1,18 +1,18 @@
 <script lang="ts">
-import SelecionarIngredientes from './SelecionarIngredientes.vue';
-import Tag from './Tag.vue';
+import SelecionarIngredientes from './SelecionarIngredientes.vue'; // Importa o componente SelecionarIngredientes
+import Tag from './Tag.vue'; // Importa o componente Tag
 
 export default {
-    name: 'ConteudoPrincipal',  // Nome do componente Vue
+    name: 'ConteudoPrincipal', // Nome do componente Vue
     data() {
         return {
-            ingredientes: ['Alho', 'Manteiga', 'Orégano']  // Dados do componente: uma lista de ingredientes
+            ingredientes: ['Alho', 'Manteiga', 'Orégano'] // Dados do componente: uma lista de ingredientes
         };
     },
-
-    components: { SelecionarIngredientes, Tag }
+    components: { SelecionarIngredientes, Tag } // Registra os componentes SelecionarIngredientes e Tag
 }
 </script>
+
 
 
 <template>
@@ -24,8 +24,9 @@ export default {
 
             <!-- Lista de ingredientes, mostrada apenas se houver ingredientes (v-if)-->
             <ul v-if="ingredientes.length" class="ingredientes-sua-lista">
+                <!-- Itera sobre a lista de ingredientes e exibe um componente Tag para cada um -->
                 <li v-for="ingrediente in ingredientes" v-bind:key="ingrediente">
-                    <Tag :texto="ingrediente" /> <!-- Mostra cada ingrediente na lista -->
+                    <Tag :texto="ingrediente" /> <!-- Componente Tag exibindo o ingrediente -->
                 </li>
             </ul>
 
@@ -35,9 +36,11 @@ export default {
                 Sua lista está vazia, selecione ingredientes para iniciar
             </p>
         </section>
+        <!-- Componente SelecionarIngredientes para seleção de ingredientes -->
         <SelecionarIngredientes />
     </main>
 </template>
+
 
 
 <style scoped>
