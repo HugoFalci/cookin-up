@@ -2,7 +2,7 @@
 import type ICategoria from '@/interfaces/ICategoria'; // Importa a interface ICategoria para tipagem
 import type { PropType } from 'vue'; // Importa PropType para tipagem de propriedades do Vue
 import Tag from '@/components/Tag.vue'; // Importa o componente Tag
-import IngredienteSelecionado from './IngredienteSelecionado.vue';
+import IngredienteSelecionado from './IngredienteSelecionado.vue'; // Importa o componente IngredienteSelecionado
 
 export default {
     props: {
@@ -10,12 +10,11 @@ export default {
         categoria: { type: Object as PropType<ICategoria>, required: true }
     },
 
-    components: { Tag, IngredienteSelecionado }, // Registra o componente Tag para uso dentro deste componente
+    components: { Tag, IngredienteSelecionado }, // Registra os componentes Tag e IngredienteSelecionado para uso dentro deste componente
 
-    emits: ['adicionarIngrediente', 'removerIngrediente']
+    emits: ['adicionarIngrediente', 'removerIngrediente'] // Declara os eventos emitidos pelo componente
 }
 </script>
-
 
 
 <template>
@@ -32,7 +31,7 @@ export default {
 
         <!-- Lista de ingredientes da categoria -->
         <ul class="categoria__ingredientes">
-            <!-- Itera sobre os ingredientes da categoria e renderiza um componente Tag para cada um -->
+            <!-- Itera sobre os ingredientes da categoria e renderiza um componente IngredienteSelecionado para cada um -->
             <li v-for="ingrediente in categoria.ingredientes" :key="ingrediente">
                 <IngredienteSelecionado :ingrediente="ingrediente"
                     @adicionar-ingrediente="$emit('adicionarIngrediente', $event)"
@@ -46,66 +45,43 @@ export default {
 <style scoped>
 /* Estilo para a classe 'categoria' */
 .categoria {
-    width: 19.5rem;
-    /* Largura do artigo */
-    padding: 1rem;
-    /* Espaçamento interno */
-    border-radius: 1rem;
-    /* Bordas arredondadas */
-    background: var(--branco, #FFF);
-    /* Cor de fundo branca */
-    box-shadow: 4px 4px 10px 0px rgba(68, 68, 68, 0.05);
-    /* Sombra */
-    height: 100%;
-    /* Altura total */
-
-    display: flex;
-    /* Layout flexível */
-    flex-direction: column;
-    /* Itens dispostos em coluna */
-    align-items: center;
-    /* Itens centralizados */
-    gap: 2rem;
-    /* Espaçamento entre itens */
+    width: 19.5rem; /* Largura do artigo */
+    padding: 1rem; /* Espaçamento interno */
+    border-radius: 1rem; /* Bordas arredondadas */
+    background: var(--branco, #FFF); /* Cor de fundo branca */
+    box-shadow: 4px 4px 10px 0px rgba(68, 68, 68, 0.05); /* Sombra */
+    height: 100%; /* Altura total */
+    display: flex; /* Layout flexível */
+    flex-direction: column; /* Itens dispostos em coluna */
+    align-items: center; /* Itens centralizados */
+    gap: 2rem; /* Espaçamento entre itens */
 }
 
 /* Estilo para o cabeçalho da categoria */
 .categoria__cabecalho {
-    display: flex;
-    /* Layout flexível */
-    flex-direction: column;
-    /* Itens dispostos em coluna */
-    align-items: center;
-    /* Itens centralizados */
-    gap: 0.5rem;
-    /* Espaçamento entre itens */
+    display: flex; /* Layout flexível */
+    flex-direction: column; /* Itens dispostos em coluna */
+    align-items: center; /* Itens centralizados */
+    gap: 0.5rem; /* Espaçamento entre itens */
 }
 
 /* Estilo para a imagem da categoria */
 .categoria__imagem {
-    width: 3.5rem;
-    /* Largura da imagem */
+    width: 3.5rem; /* Largura da imagem */
 }
 
 /* Estilo para o nome da categoria */
 .categoria__nome {
-    text-align: center;
-    /* Texto centralizado */
-    color: var(--verde-medio, #3D6D4A);
-    /* Cor do texto verde médio */
-    font-weight: 700;
-    /* Negrito */
+    text-align: center; /* Texto centralizado */
+    color: var(--verde-medio, #3D6D4A); /* Cor do texto verde médio */
+    font-weight: 700; /* Negrito */
 }
 
 /* Estilo para a lista de ingredientes */
 .categoria__ingredientes {
-    display: flex;
-    /* Layout flexível */
-    justify-content: center;
-    /* Itens centralizados horizontalmente */
-    gap: 0.5rem;
-    /* Espaçamento entre itens */
-    flex-wrap: wrap;
-    /* Itens quebram linha se necessário */
+    display: flex; /* Layout flexível */
+    justify-content: center; /* Itens centralizados horizontalmente */
+    gap: 0.5rem; /* Espaçamento entre itens */
+    flex-wrap: wrap; /* Itens quebram linha se necessário */
 }
 </style>
