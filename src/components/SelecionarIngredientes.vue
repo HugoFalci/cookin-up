@@ -14,7 +14,8 @@ export default {
         this.categorias = await obterCategorias(); // Carrega as categorias ao criar o componente
     },
 
-    components: { CardCategoria } // Registra o componente CardCategoria
+    components: { CardCategoria }, // Registra o componente CardCategoria
+    emits: ['adicionarIngrediente', 'removerIngrediente']
 }
 </script>
 
@@ -34,7 +35,7 @@ export default {
         <ul class="categorias">
             <!-- Itera sobre as categorias e exibe um CardCategoria para cada uma -->
             <li v-for="categoria in categorias" :key="categoria.nome">
-                <CardCategoria :categoria="categoria" />
+                <CardCategoria :categoria="categoria" @adicionar-ingrediente="$emit('adicionarIngrediente', $event)" @remover-ingrediente="$emit('removerIngrediente', $event)"/>
             </li>
         </ul>
 

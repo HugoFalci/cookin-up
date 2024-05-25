@@ -2,6 +2,7 @@
 import type ICategoria from '@/interfaces/ICategoria'; // Importa a interface ICategoria para tipagem
 import type { PropType } from 'vue'; // Importa PropType para tipagem de propriedades do Vue
 import Tag from '@/components/Tag.vue'; // Importa o componente Tag
+import IngredienteSelecionado from './IngredienteSelecionado.vue';
 
 export default {
     props: {
@@ -9,7 +10,9 @@ export default {
         categoria: { type: Object as PropType<ICategoria>, required: true }
     },
 
-    components: { Tag } // Registra o componente Tag para uso dentro deste componente
+    components: { Tag, IngredienteSelecionado }, // Registra o componente Tag para uso dentro deste componente
+
+    emits: ['adicionarIngrediente', 'removerIngrediente']
 }
 </script>
 
@@ -31,7 +34,9 @@ export default {
         <ul class="categoria__ingredientes">
             <!-- Itera sobre os ingredientes da categoria e renderiza um componente Tag para cada um -->
             <li v-for="ingrediente in categoria.ingredientes" :key="ingrediente">
-                <Tag :texto="ingrediente" ativa />
+                <IngredienteSelecionado :ingrediente="ingrediente"
+                    @adicionar-ingrediente="$emit('adicionarIngrediente', $event)"
+                    @remover-ingrediente="$emit('removerIngrediente', $event)" />
             </li>
         </ul>
     </article>
