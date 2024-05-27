@@ -2,6 +2,7 @@
 import { obterCategorias } from '@/http/index'; // Importa a função obterCategorias do arquivo index.ts em '@/http/'
 import type ICategoria from '@/interfaces/ICategoria'; // Importa a interface ICategoria
 import CardCategoria from './CardCategoria.vue'; // Importa o componente CardCategoria
+import BotaoPrincipal from './BotaoPrincipal.vue';
 
 export default {
     data() {
@@ -14,7 +15,7 @@ export default {
         this.categorias = await obterCategorias(); // Carrega as categorias ao criar o componente
     },
 
-    components: { CardCategoria }, // Registra o componente CardCategoria
+    components: { CardCategoria, BotaoPrincipal }, // Registra o componente CardCategoria
     emits: ['adicionarIngrediente', 'removerIngrediente']
 }
 </script>
@@ -43,6 +44,8 @@ export default {
         <p class="paragrafo dica">
             *Atenção: consideramos que você tem em casa: sal, pimenta e água.
         </p>
+        
+        <BotaoPrincipal texto="Buscar Ingrediente"/>
     </section>
 </template>
 

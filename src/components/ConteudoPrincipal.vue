@@ -29,7 +29,8 @@ export default {
     <main class="conteudo-principal"> <!-- Elemento principal com a classe 'conteudo-principal' -->
         <SuaLista :ingredientes="ingredientes" />
         <!-- Componente SelecionarIngredientes para seleção de ingredientes -->
-        <SelecionarIngredientes @adicionar-ingrediente="adicionarIngrediente($event)" @remover-ingrediente="removerIngrediente($event)" />
+        <SelecionarIngredientes @adicionar-ingrediente="adicionarIngrediente($event)"
+            @remover-ingrediente="removerIngrediente($event)" />
     </main>
 </template>
 
