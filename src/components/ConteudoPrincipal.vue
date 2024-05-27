@@ -24,7 +24,6 @@ export default {
 </script>
 
 
-
 <template>
     <main class="conteudo-principal"> <!-- Elemento principal com a classe 'conteudo-principal' -->
         <SuaLista :ingredientes="ingredientes" />

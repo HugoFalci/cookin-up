@@ -17,7 +17,6 @@ export default {
 </script>
 
 
-
 <template>
     <!-- Estrutura do artigo com a classe 'categoria' -->
     <article class="categoria">

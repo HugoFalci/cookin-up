@@ -1,28 +1,35 @@
 <script lang="ts">
+// Importações necessárias
 import { obterCategorias } from '@/http/index'; // Importa a função obterCategorias do arquivo index.ts em '@/http/'
 import type ICategoria from '@/interfaces/ICategoria'; // Importa a interface ICategoria
 import CardCategoria from './CardCategoria.vue'; // Importa o componente CardCategoria
-import BotaoPrincipal from './BotaoPrincipal.vue';
+import BotaoPrincipal from './BotaoPrincipal.vue'; // Importa o componente BotaoPrincipal
 
+// Exporta o componente Vue
 export default {
+    // Declaração dos dados do componente
     data() {
         return {
             categorias: [] as ICategoria[] // Inicializa um array vazio para armazenar as categorias
         }
     },
 
+    // Método executado ao criar o componente
     async created() {
         this.categorias = await obterCategorias(); // Carrega as categorias ao criar o componente
     },
 
-    components: { CardCategoria, BotaoPrincipal }, // Registra o componente CardCategoria
+    // Registro dos componentes utilizados neste componente
+    components: { CardCategoria, BotaoPrincipal }, // Registra os componentes CardCategoria e BotaoPrincipal
+
+    // Declaração dos eventos emitidos pelo componente
     emits: ['adicionarIngrediente', 'removerIngrediente']
 }
 </script>
 
 
-
 <template>
+    <!-- Seção para selecionar ingredientes -->
     <section class="selecionar-ingredientes">
         <!-- Título "ingredientes" -->
         <h1 class="cabecalho titulo-ingredientes">ingredientes</h1>
@@ -34,9 +41,10 @@ export default {
 
         <!-- Lista de categorias -->
         <ul class="categorias">
-            <!-- Itera sobre as categorias e exibe um CardCategoria para cada uma -->
+            <!-- Iteração sobre as categorias e exibição de um CardCategoria para cada uma -->
             <li v-for="categoria in categorias" :key="categoria.nome">
-                <CardCategoria :categoria="categoria" @adicionar-ingrediente="$emit('adicionarIngrediente', $event)" @remover-ingrediente="$emit('removerIngrediente', $event)"/>
+                <CardCategoria :categoria="categoria" @adicionar-ingrediente="$emit('adicionarIngrediente', $event)"
+                    @remover-ingrediente="$emit('removerIngrediente', $event)" />
             </li>
         </ul>
 
@@ -44,13 +52,16 @@ export default {
         <p class="paragrafo dica">
             *Atenção: consideramos que você tem em casa: sal, pimenta e água.
         </p>
-        
-        <BotaoPrincipal texto="Buscar Ingrediente"/>
+
+        <!-- Botão principal -->
+        <BotaoPrincipal texto="Buscar Ingrediente" />
     </section>
 </template>
 
 
 <style scoped>
+/* Estilos CSS para o componente */
+
 /* Estilo para a classe 'selecionar-ingredientes' */
 .selecionar-ingredientes {
     display: flex;
@@ -68,12 +79,6 @@ export default {
     display: block;
     /* Exibe como bloco */
     margin-bottom: 1.5rem;
-    /* Margem inferior */
-}
-
-/* Estilo para as instruções */
-.instrucoes {
-    margin-bottom: 2rem;
     /* Margem inferior */
 }
 
@@ -97,7 +102,6 @@ export default {
     /* Alinha à esquerda */
     margin-bottom: 3.5rem;
     /* Margem inferior */
-
 }
 
 /* Estilos responsivos para telas com largura máxima de 767px */
