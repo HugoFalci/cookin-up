@@ -23,7 +23,7 @@ export default {
     components: { CardCategoria, BotaoPrincipal }, // Registra os componentes CardCategoria e BotaoPrincipal
 
     // Declaração dos eventos emitidos pelo componente
-    emits: ['adicionarIngrediente', 'removerIngrediente']
+    emits: ['adicionarIngrediente', 'removerIngrediente', 'MostrarReceitas']
 }
 </script>
 
@@ -43,7 +43,9 @@ export default {
         <ul class="categorias">
             <!-- Iteração sobre as categorias e exibição de um CardCategoria para cada uma -->
             <li v-for="categoria in categorias" :key="categoria.nome">
-                <CardCategoria :categoria="categoria" @adicionar-ingrediente="$emit('adicionarIngrediente', $event)"
+                <CardCategoria 
+                    :categoria="categoria" 
+                    @adicionar-ingrediente="$emit('adicionarIngrediente', $event)"
                     @remover-ingrediente="$emit('removerIngrediente', $event)" />
             </li>
         </ul>
@@ -54,7 +56,9 @@ export default {
         </p>
 
         <!-- Botão principal -->
-        <BotaoPrincipal texto="Buscar Ingrediente" />
+        <BotaoPrincipal 
+            texto="Buscar Ingrediente" 
+            @click="$emit('MostrarReceitas')"/>
     </section>
 </template>
 

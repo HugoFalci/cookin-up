@@ -1,45 +1,43 @@
 <script lang="ts">
-import Tag from './Tag.vue'; // Importa o componente Tag
+import Tag from './Tag.vue';
 
 export default {
-    components: { Tag }, // Registra o componente Tag para uso dentro deste componente
+    components: { Tag },
     props: {
-        ingrediente: { type: String, required: true } // Define a propriedade 'ingrediente' como obrigatória e do tipo String
+        ingrediente: { type: String, required: true }
     },
+
     data() {
         return {
-            selecionado: false // Inicializa o estado 'selecionado' como falso
+            selecionado: false
         }
     },
+
     methods: {
         aoClicar() {
-            this.selecionado = !this.selecionado; // Alterna o estado 'selecionado' ao clicar no botão
+            this.selecionado = !this.selecionado
 
-            // Emite um evento dependendo do estado selecionado
             if (this.selecionado) {
-                this.$emit('adicionarIngrediente', this.ingrediente); // Emite o evento 'adicionarIngrediente'
+                this.$emit('adicionarIngrediente', this.ingrediente)
             } else {
-                this.$emit('removerIngrediente', this.ingrediente); // Emite o evento 'removerIngrediente'
+                this.$emit('removerIngrediente', this.ingrediente);
             }
         }
     },
-    emits: ['adicionarIngrediente', 'removerIngrediente'] // Declara os eventos emitidos pelo componente
+    emits: ['adicionarIngrediente', 'removerIngrediente']
 }
 </script>
 
 
 <template>
-    <!-- Botão representando o ingrediente -->
     <button class="ingrediente" @click="aoClicar()" :aria-pressed="selecionado">
-        <!-- Componente Tag exibindo o texto do ingrediente e indicando se está selecionado -->
         <Tag :texto="ingrediente" :ativa="selecionado" />
     </button>
 </template>
 
 
 <style scoped>
-/* Estilo para o botão de ingrediente */
 .ingrediente {
-    cursor: pointer; /* Altera o cursor para indicar que o botão é clicável */
+    cursor: pointer;
 }
 </style>
