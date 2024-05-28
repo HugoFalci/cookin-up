@@ -35,7 +35,9 @@ export default {
 <template>
     <main class="conteudo-principal"> <!-- Elemento principal com a classe 'conteudo-principal' -->
         <SuaLista 
-            :ingredientes="ingredientes" />
+            :ingredientes="ingredientes" 
+            v-if="conteudo === 'SelecionarIngrediente'"/>
+            
         <!-- Componente SelecionarIngredientes para seleção de ingredientes -->
         <SelecionarIngredientes 
             v-if="conteudo === 'SelecionarIngrediente'"
@@ -44,7 +46,8 @@ export default {
             @MostrarReceitas="navegar('MostrarReceitas')" />
 
         <MostrarReceitas 
-            v-else-if="conteudo === 'MostrarReceitas'" />
+            v-else-if="conteudo === 'MostrarReceitas'" 
+            />
     </main>
 </template>
 

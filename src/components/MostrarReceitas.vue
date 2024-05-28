@@ -1,11 +1,17 @@
 <script lang="ts">
 import type IListaReceita from "@/interfaces/IListaReceita";
 import CardReceitas from './CardReceitas.vue';
-import type { PropType } from "vue/dist/vue.js";
+import { obterReceitas } from "@/http/index";
 
 export default {
-    props: {
-        listaReceita: {typo: Object as PropType<IListaReceita>, required: true}
+    data() {
+        return {
+            receitas: [] as IListaReceita[]
+        }
+    },
+
+    async created() {
+        this.receitas = await obterReceitas(); // Carrega as categorias ao criar o componente
     },
 
     components: { CardReceitas }
@@ -26,7 +32,9 @@ export default {
         </p>
 
         <ul class="categorias">
-            <CardReceitas v-for="receita in listaReceita" :key="receita"/>
+            <li v-for="receita in receitas" :key="receita.nome">
+                {{ receita.nome }}
+            </li>
         </ul>
     </section>
 </template>
