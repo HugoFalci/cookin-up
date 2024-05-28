@@ -35,19 +35,22 @@ export default {
 <template>
     <main class="conteudo-principal"> <!-- Elemento principal com a classe 'conteudo-principal' -->
         <SuaLista 
-            :ingredientes="ingredientes" 
-            v-if="conteudo === 'SelecionarIngrediente'"/>
-            
-        <!-- Componente SelecionarIngredientes para seleção de ingredientes -->
-        <SelecionarIngredientes 
-            v-if="conteudo === 'SelecionarIngrediente'"
-            @adicionar-ingrediente="adicionarIngrediente($event)" 
-            @remover-ingrediente="removerIngrediente($event)"
-            @MostrarReceitas="navegar('MostrarReceitas')" />
-
-        <MostrarReceitas 
-            v-else-if="conteudo === 'MostrarReceitas'" 
+            :ingredientes="ingredientes" />
+        
+        <KeepAlive include="SelecionarIngredientes">            
+            <SelecionarIngredientes 
+                v-if="conteudo === 'SelecionarIngrediente'"
+                @adicionar-ingrediente="adicionarIngrediente($event)" 
+                @remover-ingrediente="removerIngrediente($event)"
+                @MostrarReceitas="navegar('MostrarReceitas')" 
             />
+    
+            <MostrarReceitas 
+                v-else-if="conteudo === 'MostrarReceitas'"
+                :ingredientes="ingredientes"
+                @editar-receitas="navegar('SelecionarIngrediente')" 
+            />
+        </KeepAlive>
     </main>
 </template>
 

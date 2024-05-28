@@ -1,77 +1,119 @@
 <script lang="ts">
-import type IListaReceita from "@/interfaces/IListaReceita";
-import CardReceitas from './CardReceitas.vue';
-import { obterReceitas } from "@/http/index";
+import { obterReceitas } from '@/http';
+import type IListaReceita from '@/interfaces/IListaReceita';
+import BotaoPrincipal from './BotaoPrincipal.vue';
+import CardReceita from './CardReceitas.vue';
+import type { PropType } from 'vue';
+import {itensDeLista1EstaoEmLista2} from '@/operacoes/listas';
+
 
 export default {
+    props: {
+        ingredientes: { type: Array as PropType<string[]>, required: true}
+    },
+
     data() {
         return {
-            receitas: [] as IListaReceita[]
-        }
+            receitasEncontradas: [] as IListaReceita[]
+        };
     },
 
     async created() {
-        this.receitas = await obterReceitas(); // Carrega as categorias ao criar o componente
-    },
+        const receitas = await obterReceitas();
 
-    components: { CardReceitas }
+        this.receitasEncontradas = receitas.filter((receita) => {
+            /* Lógica que verifica se posso fazer receita:
+                Todos os ingredientes de uma receita devem estar inclusos na minha lista de ingredientes 
+                Se setImmediate, devemos retornar 'true' */
+
+            const possoFazerReceita = itensDeLista1EstaoEmLista2(receita.ingredientes, this.ingredientes);
+
+            return possoFazerReceita;
+        });
+    },
+    
+    components: { BotaoPrincipal, CardReceita },
+    emits: ['editarReceitas']
 }
 </script>
 
-
 <template>
-    <section class="selecionar-receitas">
+    <section class="mostrar-receitas">
         <h1 class="cabecalho titulo-receitas">Receitas</h1>
 
-        <p class="paragrafo resultado-receitas">
-            Resultados encontrados: 8
+        <p class="paragrafo-lg resultados-encontrados">
+            Resultados encontrados: {{ receitasEncontradas.length }}
         </p>
 
-        <p class="paragrafo dica">
-            Veja as opções de receitas que encontramos com os ingredientes que você tem por aí!
-        </p>
+        <div v-if="receitasEncontradas.length" class="receitas-wrapper">
+            <p class="paragrafo-lg informacoes">
+                Veja as opções de receitas que encontramos com os ingredientes que você tem por aí!
+            </p>
 
-        <ul class="categorias">
-            <li v-for="receita in receitas" :key="receita.nome">
-                {{ receita.nome }}
-            </li>
-        </ul>
+            <ul class="receitas">
+                <li v-for="receita of receitasEncontradas" :key="receita.nome">
+                    <CardReceita :receita="receita" />
+                </li>
+            </ul>
+        </div>
+
+        <div v-else class="receitas-nao-encontradas">
+            <p class="paragrafo-lg receitas-nao-encontradas__info">
+                Ops, não encontramos resultados para sua combinação. Vamos tentar de novo?
+            </p>
+
+            <img src="../assets/imagens/sem-receitas.png"
+                alt="Desenho de um ovo quebrado. A gema tem um rosto com uma expressão triste.">
+        </div>
+
+        <BotaoPrincipal texto="Editar lista" @click="$emit('editarReceitas')" />
     </section>
 </template>
 
-
 <style scoped>
-/* Estilo para a classe 'selecionar-ingredientes' */
-.selecionar-receitas {
+.mostrar-receitas {
     display: flex;
-    /* Define como flexbox */
     flex-direction: column;
-    /* Itens dispostos em coluna */
     align-items: center;
-    /* Itens centralizados verticalmente */
+    text-align: center;
 }
 
-/* Estilo para o título "ingredientes" */
 .titulo-receitas {
     color: var(--verde-medio, #3D6D4A);
-    /* Cor do texto verde médio */
-    display: block;
-    /* Exibe como bloco */
     margin-bottom: 1.5rem;
-    /* Margem inferior */
 }
 
-.resultado-receitas {
+.resultados-encontrados {
     color: var(--verde-medio, #3D6D4A);
-    /* Cor do texto verde médio */
-    display: block;
-    /* Exibe como bloco */
-    margin-bottom: 1.5rem;
-    /* Margem inferior */
-    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
 }
 
-.dica {
-    font-size: 1.5rem;
+.receitas-wrapper {
+    margin-bottom: 3.5rem;
+}
+
+.informacoes {
+    margin-bottom: 2rem;
+}
+
+.receitas {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.receitas-nao-encontradas {
+    margin-bottom: 2rem;
+}
+
+.receitas-nao-encontradas__info {
+    margin-bottom: 0.5rem;
+}
+
+@media only screen and (max-width: 767px) {
+    .receitas-wrapper {
+        margin-bottom: 2rem;
+    }
 }
 </style>

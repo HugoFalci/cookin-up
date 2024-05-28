@@ -1,7 +1,6 @@
 <script lang="ts">
 import type ICategoria from '@/interfaces/ICategoria'; // Importa a interface ICategoria para tipagem
 import type { PropType } from 'vue'; // Importa PropType para tipagem de propriedades do Vue
-import Tag from '@/components/Tag.vue'; // Importa o componente Tag
 import IngredienteSelecionado from './IngredienteSelecionado.vue';
 
 export default {
@@ -10,7 +9,7 @@ export default {
         categoria: { type: Object as PropType<ICategoria>, required: true }
     },
 
-    components: { Tag, IngredienteSelecionado }, // Registra o componente Tag para uso dentro deste componente
+    components: { IngredienteSelecionado }, // Registra o componente Tag para uso dentro deste componente
 
     emits: ['adicionarIngrediente', 'removerIngrediente']
 }

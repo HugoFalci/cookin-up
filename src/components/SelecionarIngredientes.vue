@@ -7,6 +7,7 @@ import BotaoPrincipal from './BotaoPrincipal.vue'; // Importa o componente Botao
 
 // Exporta o componente Vue
 export default {
+    name: 'SelecionarIngredientes',
     // Declaração dos dados do componente
     data() {
         return {
